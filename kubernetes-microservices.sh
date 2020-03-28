@@ -277,3 +277,30 @@ spec:
       containers:                                                            
       - name: webapp                                                       
         image: richardchesterwood/k8s-fleetman-webapp-angular:release0-5   
+
+#
+# namespaces
+#
+# es la forma de particionar los recursos en kubernetes , en openshift
+# son los projectos. Cad namespace es un area estanca dentro del cluster
+
+oc get namespaces (ns)
+oc get pods -n kube-system
+
+# tanto kube-system como kube-public son usados por ocp de forma interna
+# vamos a trabajar con networking entre pods con un ejemplo
+# de una mysql en un pod y en otro la app
+# para ello vamos a crear 2 manifiestos el del pod y del servicio database
+# se vana a comunicar internbamente con ClusteriP y port 3306
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+  type: ClusterIP
+
+
