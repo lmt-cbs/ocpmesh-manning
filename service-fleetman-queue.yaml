@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-queue
+spec:
+  selector:
+    app: fleetman-queue
+    release: release1
+  ports:
+    - name: queue
+      protocol: TCP
+      port: 8161
+      NodePort: 30010
+  type: NodePort

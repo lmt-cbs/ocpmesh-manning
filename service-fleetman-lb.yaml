@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # Este nombre es el identificador unico del servicio
+  name: fleetman-webapp-lb
+spec:
+  # Define que pods van a ser representados por este servicio
+  # el servicio se convierte en un endpoint
+  selector:
+    # hace balanceo de carga del trafico con los pods con el mismo label
+    app: nginx
+  # podriamos crear tambien un tipo loadbalancer que crearia un lb en cloud
+  # type: loadbalancer
+  # type: ClusterIP - Interno cluster
+  # type: NodePort - acceso externo al pod valores port > 30000
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
