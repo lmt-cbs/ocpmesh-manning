@@ -2,6 +2,35 @@
 # conceptos basicos Kubernetes y ejemplo
 #
 
+# lo primero par poder tarabajar con contenedores en wsl ubuntu
+# es hacer un update del windows 10 si la bild es inferior a 18917
+# una vez este esto , hay que configurar el ubuntu y añadir a apt el
+# lo necesario 
+https://www.redhat.com/sysadmin/podman-windows-wsl2
+
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update -qq
+sudo apt-get -qq -y install podman
+sudo mkdir -p /etc/containers
+echo -e "[registries.search]\nregistries = ['docker.io', 'quay.io']" | sudo tee /etc/containers/registries.conf
+
+# despues por comodidad de  uso es mejor modificar el fichero de configuracion de podman
+#y cambiar el cgroup y el logger
+--cgroup-manager cgroupfs --event-logger file
+
+
+
+git remote add origin https://github.com/lmtbelmonte/ocp43-fleetman.git
+git push -u origin master
+
+/home/lmtbelmonte/k8s-fleetman/k8s-fleetman-webapp-angular
+
+# los ejercicios estan en git 
+# DickChesterwood/k8s-fleetman/blob/master/k8s-fleetman-webapp-angular
+
 # accesso al API de kubernetes 
 https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/#-strong-api-overview-strong-
 https://goo.gl/cpWuyw
